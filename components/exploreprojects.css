@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&display=swap');
+
+/* ── SECTION ── */
+.erp2-section {
+  background: #f0eeeb;
+  padding: 56px 0 64px;
+  font-family: 'Barlow', sans-serif;
+  overflow: hidden;
+}
+
+/* ── TOP ROW ── */
+.erp2-top {
+  max-width: 1060px;
+  margin: 0 auto 36px;
+  padding: 0 44px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.erp2-overline {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #e85d04;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.erp2-heading {
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.erp2-view-all {
+  background: #e85d04;
+  color: #fff;
+  border: none;
+  padding: 13px 24px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: background 0.2s;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.erp2-view-all:hover {
+  background: #cf4f00;
+}
+
+/* ── SLIDER WRAPPER ── */
+.erp2-slider-wrap {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 44px;
+  position: relative;
+}
+
+.erp2-slide {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 420px;
+  background: #1a1a1a;
+}
+
+/* ── LEFT: image pane ── */
+.erp2-slide-img {
+  position: relative;
+  overflow: hidden;
+}
+.cover-project-images{
+  height: 450px;
+}
+
+.cover-project-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease, opacity 0.4s ease;
+}
+
+.ecover-project-images::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0, 0, 0, 0.55) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* tag overlay */
+.erp2-img-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 3;
+  background: #e85d04;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+}
+
+/* arrow nav */
+.erp2-arrow {
+  position: absolute;
+  bottom: 20px;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  backdrop-filter: blur(4px);
+}
+.erp2-arrow:hover {
+  background: #e85d04;
+  border-color: #e85d04;
+}
+.erp2-arrow-left  { left: 20px; }
+.erp2-arrow-right { left: 72px; }
+
+/* slide counter */
+.erp2-counter {
+  position: absolute;
+  bottom: 28px;
+  right: 20px;
+  z-index: 3;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+.erp2-counter span {
+  color: #fff;
+}
+
+/* ── RIGHT: info pane ── */
+.erp2-slide-info {
+  background: #1c1c1a;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.erp2-info-top {
+  flex: 1;
+}
+
+.erp2-info-date {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.erp2-info-title {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.erp2-info-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.erp2-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.erp2-stat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e85d04;
+  flex-shrink: 0;
+}
+
+.erp2-info-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.erp2-explore-btn {
+  background: #e85d04;
+  color: #fff;
+  border: none;
+  padding: 13px 22px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+  border-radius: 3px;
+}
+.erp2-explore-btn:hover {
+  background: #cf4f00;
+}
+
+.erp2-share-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.erp2-share-btn:hover {
+  border-color: #e85d04;
+  color: #e85d04;
+}
+
+/* ── PROGRESS BAR ── */
+.erp2-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 28px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.erp2-progress-fill {
+  height: 100%;
+  background: #e85d04;
+  border-radius: 1px;
+  transition: width 0.4s ease;
+}
+
+/* ── BOTTOM TAB ROW ── */
+.erp2-tabs {
+  max-width: 1060px;
+  margin: 20px auto 0;
+  padding: 0 44px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.erp2-tab {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 100px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.25s;
+}
+
+.erp2-tab img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+  filter: brightness(0.55) saturate(0.7);
+}
+
+.erp2-tab:hover img,
+.erp2-tab.active img {
+  transform: scale(1.06);
+  filter: brightness(0.75) saturate(1);
+}
+
+.erp2-tab.active {
+  border-color: #e85d04;
+}
+
+.erp2-tab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.erp2-tab-info {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  z-index: 2;
+}
+
+.erp2-tab-tag {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.erp2-tab-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* active tab top bar */
+.erp2-tab-active-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #e85d04;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.erp2-tab.active .erp2-tab-active-bar {
+  opacity: 1;
+}
+
+/* ── FADE ANIMATION ── */
+.cover-project-images img.fade-enter {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .erp2-slide            { grid-template-columns: 1fr; height: auto; }
+  .erp2-slide-info       { padding: 24px 20px; }
+  .erp2-tabs             { grid-template-columns: repeat(2, 1fr); }
+  .erp2-top              { padding: 0 20px; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .erp2-slider-wrap      { padding: 0 20px; }
+  .erp2-tabs             { padding: 0 20px; }
+}
