@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚧 CONSTRUCTION SERVICES PLATFORM
+A modern and responsive construction services frontend application built with Next.js.
+Designed to showcase construction services, projects, company information, and customer engagement with a clean professional UI.
 
-## Getting Started
+---
 
-First, run the development server:
+# 📌 Overview
+This project is a frontend-only construction company website focused on:
+
+Professional business presentation
+Responsive modern UI
+Service showcasing
+Project portfolio display
+Contact & inquiry sections
+Optimized user experience
+
+Built using the latest Next.js App Router architecture.
+
+---
+
+# ⚡ Tech Stack
+
+## Frontend
+
+* Next.js App Router
+* React.js
+* JavaScript
+* Responsive UI
+
+
+---
+
+# 📂 Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+CONSTRUCTION-SERVICES/
+│
+├── app/                  # App Router Pages & APIs
+├── components/           # Reusable UI Components
+├── public/               # Static Assets
+├── node_modules/
+├── .next/
+├── package.json
+├── next.config.mjs
+├── jsconfig.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 👷 User Features
 
-## Learn More
+* Service Browsing
+* Project Gallery
+* Quote Request System
+* Contact Form
+* Responsive Mobile UI
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 👨‍💻 Developer Notes
 
-## Deploy on Vercel
+This project follows scalable enterprise-level folder architecture and modern full-stack development practices.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Optimized for:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Clean Code
+* Scalability
+* Reusability
+* Maintainability
+* Production Deployment
+
+---
+
+# 🤝 Contributing
+
+Pull requests are welcome.
+
+For major changes:
+
+1. Fork Repository
+2. Create Feature Branch
+3. Commit Changes
+4. Push Branch
+5. Open Pull Request
+
+---
+
+# 📄 License
+
+MIT License
+
+---
+
+# ⭐ Support
+
+If you like this project:
+
+```bash
+Give it a ⭐ on GitHub
+```
+
+---
+
+# 🚀 Built With Passion By Ravi Mishra
