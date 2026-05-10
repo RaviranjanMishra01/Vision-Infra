@@ -1,0 +1,140 @@
+.wcu-section {
+    background: #f0eeeb;
+    position: relative;
+    overflow: hidden;
+    padding: 64px 0 72px;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  /* faint large numbers on the far right background */
+  .wcu-bg-numbers {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .wcu-bg-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 96px;
+    font-weight: 900;
+    color: rgba(0,0,0,0.042);
+    line-height: 1.0;
+    letter-spacing: -3px;
+  }
+
+  .wcu-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 44px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 48px;
+    align-items: center;
+  }
+
+  /* ── LEFT ── */
+  .wcu-left {
+    position: relative;
+  }
+
+  .wcu-overline {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e85d04;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .wcu-heading {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(30px, 3.8vw, 46px);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.1;
+    margin-bottom: 32px;
+  }
+
+  .wcu-truck-wrapper {
+    position: relative;
+    width: 108%;
+    margin-left: -4%;
+  }
+
+  .wcu-truck-img {
+    width: 100%;
+    max-width: 530px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── RIGHT ── */
+  .wcu-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wcu-feature {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 0 14px;
+    align-items: start;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    position: relative;
+  }
+
+  .wcu-feature:last-child {
+    border-bottom: none;
+  }
+
+  .wcu-feat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 46px;
+    font-weight: 900;
+    color: rgba(0,0,0,0.09);
+    line-height: 1;
+    letter-spacing: -1px;
+    padding-top: 1px;
+  }
+
+  .wcu-feat-body {}
+
+  .wcu-feat-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+  }
+
+  .wcu-feat-desc {
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: #999;
+    max-width: 310px;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .wcu-container {
+      grid-template-columns: 1fr;
+      gap: 32px 0;
+      padding: 0 24px;
+    }
+    .wcu-truck-wrapper { width: 100%; margin-left: 0; }
+    .wcu-bg-numbers { display: none; }
+  }
