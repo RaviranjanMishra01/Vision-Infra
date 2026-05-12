@@ -1,6 +1,50 @@
 "use client"
 import { useState } from "react";
+import "./Haveaproject.css"
 
+
+// ─── VALIDATION RULES ───────────────────────────────────────────────────────
+const VALIDATIONS = {
+  fullname: {
+    validate: (value) => {
+      if (!value.trim()) return "Full Name is required";
+      if (value.trim().length < 2) return "Name must be at least 2 characters";
+      if (!/^[a-zA-Z\s'-]+$/.test(value)) return "Name can only contain letters, spaces, hyphens, and apostrophes";
+      return null;
+    }
+  },
+  phone: {
+    validate: (value) => {
+      if (!value.trim()) return "Phone Number is required";
+      const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
+      if (!phoneRegex.test(value)) return "Enter a valid phone number";
+      return null;
+    }
+  },
+  email: {
+    validate: (value) => {
+      if (!value.trim()) return "Email Address is required";
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) return "Enter a valid email address";
+      return null;
+    }
+  },
+  company: {
+    validate: (value) => {
+      if (!value.trim()) return "Company name is required";
+      if (value.trim().length < 2) return "Company name must be at least 2 characters";
+      return null;
+    }
+  },
+  message: {
+    validate: (value) => {
+      if (!value.trim()) return "Message is required";
+      if (value.trim().length < 10) return "Message must be at least 10 characters";
+      if (value.trim().length > 1000) return "Message cannot exceed 1000 characters";
+      return null;
+    }
+  }
+};
 
 // ─── ALL DATA IN JSON ───────────────────────────────────────────────────────
 const DATA = {
@@ -18,215 +62,150 @@ const DATA = {
   submitBtn: "SUBMIT NOW →",
 };
 
-// ─── STYLES ─────────────────────────────────────────────────────────────────
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;600;700;800;900&display=swap');
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+// ─── NOTIFICATION COMPONENT ───────────────────────────────────────────────────
+function NotificationPopup({ type, title, message, errors, onClose }) {
+  return (
+    <div className={`notification-overlay notification-${type}`}>
+      <div className={`notification-popup notification-popup-${type}`}>
+        <div className="notification-close" onClick={onClose}>✕</div>
+        
+        <div className="notification-icon">
+          {type === 'error' && '⚠️'}
+          {type === 'success' && '✓'}
+          {type === 'info' && 'ℹ'}
+        </div>
 
-  body { font-family: 'Barlow', sans-serif; background: #f0eeeb; }
+        <h3 className="notification-title">{title}</h3>
+        
+        {message && <p className="notification-message">{message}</p>}
+        
+        {errors && Object.keys(errors).length > 0 && (
+          <div className="notification-errors">
+            {Object.entries(errors).map(([field, error]) => (
+              error && (
+                <div key={field} className="notification-error-item">
+                  <span className="error-field">{field}:</span> {error}
+                </div>
+              )
+            ))}
+          </div>
+        )}
 
-  .pim-section {
-    background: #f0eeeb;
-    font-family: 'Barlow', sans-serif;
-    position: relative;
-    overflow: hidden;
-    min-height: 550px;
-    display: flex;
-    align-items: stretch;
-  }
+        <button className="notification-btn" onClick={onClose}>
+          {type === 'success' ? 'Great! Thanks' : 'Got it'}
+        </button>
+      </div>
+    </div>
+  );
+}
 
-  /* faint diagonal orange watermark right side */
-  .pim-section::after {
-    content: '';
-    position: absolute;
-    right: -60px;
-    top: 50%;
-    transform: translateY(-50%) rotate(-18deg);
-    width: 260px;
-    height: 260px;
-    background: rgba(232,93,4,0.07);
-    border-radius: 12px;
-    pointer-events: none;
-    z-index: 0;
-  }
 
-  /* ── LEFT image ── */
-  .pim-image-col {
-    position: relative;
-    width: 36%;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-
-  .pim-image-col img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    filter: brightness(0.88);
-  }
-
-  /* fade image into background on the right edge */
-  .pim-image-col::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, transparent 55%, #f0eeeb 100%);
-    pointer-events: none;
-  }
-
-  /* ── RIGHT form area ── */
-  .pim-form-col {
-    flex: 1;
-    padding: 52px 52px 52px 44px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .pim-overline {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #e85d04;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  .pim-heading {
-    font-family: 'Barlow', sans-serif;
-    font-size: clamp(26px, 3.2vw, 38px);
-    font-weight: 800;
-    color: #1a1a1a;
-    line-height: 1.1;
-    margin-bottom: 4px;
-  }
-
-  .pim-subtext {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: rgba(0,0,0,0.15);
-    text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-
-  /* ── Form grid ── */
-  .pim-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 16px;
-  }
-
-  .pim-field {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .pim-field.full {
-    grid-column: 1 / -1;
-  }
-
-  .pim-input,
-  .pim-textarea {
-    width: 100%;
-    background: #ebe8e3;
-    border: none;
-    border-bottom: 2px solid transparent;
-    outline: none;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12.5px;
-    color: #333;
-    padding: 13px 16px;
-    border-radius: 2px;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .pim-input::placeholder,
-  .pim-textarea::placeholder {
-    color: #aaa;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-  }
-
-  .pim-input:focus,
-  .pim-textarea:focus {
-    border-bottom-color: #e85d04;
-    background: #e5e1db;
-  }
-
-  .pim-textarea {
-    resize: none;
-    height: 90px;
-  }
-
-  /* ── Submit button ── */
-  .pim-submit-wrap {
-    grid-column: 1 / -1;
-    margin-top: 4px;
-  }
-
-  .pim-submit {
-    background: #e85d04;
-    color: #fff;
-    border: none;
-    width: 100%;
-    padding: 15px 28px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: background 0.2s, transform 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .pim-submit:hover {
-    background: #cf4f00;
-    transform: translateY(-1px);
-  }
-
-  /* Responsive */
-  @media (max-width: 700px) {
-    .pim-section { flex-direction: column; }
-    .pim-image-col { width: 100%; height: 220px; }
-    .pim-image-col::after { background: linear-gradient(to bottom, transparent 55%, #f0eeeb 100%); }
-    .pim-form-col { padding: 32px 20px; }
-    .pim-form { grid-template-columns: 1fr; }
-    .pim-field.full { grid-column: 1; }
-  }
-`;
-
-// ─── COMPONENT ───────────────────────────────────────────────────────────────
+// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function HaveAProject() {
   const [form, setForm] = useState(
     Object.fromEntries(DATA.fields.map((f) => [f.id, ""]))
   );
+  
+  const [errors, setErrors] = useState({});
+  const [notification, setNotification] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: null });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const newErrors = {};
+    
+    Object.entries(VALIDATIONS).forEach(([fieldId, { validate }]) => {
+      const error = validate(form[fieldId] || "");
+      if (error) {
+        newErrors[fieldId] = error;
+      }
+    });
+    
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Form submitted! ✅");
+    
+    // Validate form
+    const formErrors = validateForm();
+    
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      
+      // Show error notification with all validation errors
+      setNotification({
+        type: 'error',
+        title: 'Validation Failed',
+        message: 'Please fix the errors below:',
+        errors: formErrors
+      });
+      
+      console.error('❌ Form Validation Failed:', formErrors);
+      return;
+    }
+    
+    // Clear errors if validation passes
+    setErrors({});
+    
+    // Log to console that validation passed
+    console.log(' Form Validation Passed');
+    console.log(' Form Data:', form);
+    
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    try {
+      // Here you would normally send data to your backend
+      // const response = await fetch('/api/submit-project', { 
+      //   method: 'POST', 
+      //   body: JSON.stringify(form) 
+      // });
+      
+      // Simulating delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      console.log(' Form Submitted Successfully!');
+      console.log(' Submission Details:', {
+        timestamp: new Date().toISOString(),
+        data: form,
+        status: 'success'
+      });
+      
+      // Show success notification
+      setNotification({
+        type: 'success',
+        title: 'Message Sent!',
+        message: 'Thank you! We\'ve received your message and will get back to you shortly.',
+      });
+      
+      // Reset form
+      setForm(Object.fromEntries(DATA.fields.map((f) => [f.id, ""])));
+      
+    } catch (error) {
+      console.error(' Submission Error:', error);
+      setNotification({
+        type: 'error',
+        title: 'Submission Failed',
+        message: 'Something went wrong. Please try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
-      <style>{styles}</style>
-
       <section className="pim-section">
 
         {/* ── LEFT: image ── */}
@@ -243,7 +222,10 @@ export default function HaveAProject() {
           <form className="pim-form" onSubmit={handleSubmit}>
             {DATA.fields.map((field) =>
               field.type === "textarea" ? (
-                <div className={`pim-field${field.half ? "" : " full"}`} key={field.id}>
+                <div 
+                  className={`pim-field${field.half ? "" : " full"} ${errors[field.id] ? 'error' : ''}`} 
+                  key={field.id}
+                >
                   <textarea
                     className="pim-textarea"
                     name={field.id}
@@ -251,10 +233,21 @@ export default function HaveAProject() {
                     value={form[field.id]}
                     onChange={handleChange}
                     rows={4}
+                    minLength={10}
+                    maxLength={1000}
                   />
+                  <span className="char-count">
+                    {form[field.id].length}/1000
+                  </span>
+                  {errors[field.id] && (
+                    <span className="field-error-text">{errors[field.id]}</span>
+                  )}
                 </div>
               ) : (
-                <div className={`pim-field${field.half ? "" : " full"}`} key={field.id}>
+                <div 
+                  className={`pim-field${field.half ? "" : " full"} ${errors[field.id] ? 'error' : ''}`} 
+                  key={field.id}
+                >
                   <input
                     className="pim-input"
                     type={field.type}
@@ -262,21 +255,43 @@ export default function HaveAProject() {
                     placeholder={field.placeholder}
                     value={form[field.id]}
                     onChange={handleChange}
+                    {...(field.id === 'fullname' && { minLength: 3, maxLength: 25 })}
+                    {...(field.id === 'company' && { minLength: 4, maxLength: 30 })}
+                    {...(field.id === 'phone' && { minLength: 10, maxLength: 10 })}
+                    {...(field.id === 'email' && { maxLength: 30 })}
                   />
+                  {errors[field.id] && (
+                    <span className="field-error-text">{errors[field.id]}</span>
+                  )}
                 </div>
               )
             )}
 
             {/* Submit button */}
             <div className="pim-submit-wrap">
-              <button type="submit" className="pim-submit">
-                {DATA.submitBtn}
+              <button 
+                type="submit" 
+                className="pim-submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'SUBMITTING...' : DATA.submitBtn}
               </button>
             </div>
           </form>
         </div>
 
       </section>
+
+      {/* Notification Popup */}
+      {notification && (
+        <NotificationPopup
+          type={notification.type}
+          title={notification.title}
+          message={notification.message}
+          errors={notification.errors}
+          onClose={() => setNotification(null)}
+        />
+      )}
     </>
   );
 }

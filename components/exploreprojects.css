@@ -145,20 +145,6 @@
 .erp2-arrow-left  { left: 20px; }
 .erp2-arrow-right { left: 72px; }
 
-/* slide counter */
-.erp2-counter {
-  position: absolute;
-  bottom: 28px;
-  right: 20px;
-  z-index: 3;
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 1px;
-}
-.erp2-counter span {
-  color: #fff;
-}
 
 /* ── RIGHT: info pane ── */
 .erp2-slide-info {
@@ -387,4 +373,5 @@
   .erp2-top              { padding: 0 20px; flex-direction: column; gap: 16px; align-items: flex-start; }
   .erp2-slider-wrap      { padding: 0 20px; }
   .erp2-tabs             { padding: 0 20px; }
+  .mobile-priview        { display: none; }
 }

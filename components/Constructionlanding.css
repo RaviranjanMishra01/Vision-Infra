@@ -1,6 +1,7 @@
 .header {
   /* background-color: var(--color-bg-white); */
   padding: var(--spacing-md) var(--spacing-xl);
+  background-color: #fff !important;
   border-bottom: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
@@ -308,13 +309,20 @@
   }
  
   .contact-section {
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .contact-person{
+    display: flex;
+    flex-direction: row;
   }
  
   .phone-box {
-    width: 100%;
+    width: 50%;
     justify-content: space-between;
+  }
+  .phone-content{
+    display: flex;
+    flex-direction: column;
   }
  
   .main-grid {

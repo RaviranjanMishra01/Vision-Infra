@@ -353,28 +353,125 @@ nav a:hover {
 }
 
 /* Responsive */
+/* ─── MOBILE ACCORDION (≤768px) ───────────────────────────────────── */
 @media (max-width: 768px) {
-    .services-layout {
-        grid-template-columns: 1fr;
-    }
+  /* Override desktop layout */
+  .services-layout {
+    display: none;
+  }
 
-    .service-content {
-        grid-template-columns: 1fr;
-    }
+  /* Accordion wrapper */
+  .services-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    transition-delay: 0.5ms;
+  }
 
-    .image-card {
-        min-height: 260px;
-    }
+  /* Each accordion item */
+  .accordion-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
 
-    .info-panel {
-        border-radius: 0 0 4px 4px;
-    }
+  /* Header button */
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 18px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Barlow', sans-serif;
+    transition: background 0.2s;
+  }
 
-    nav {
-        display: none;
-    }
+  .accordion-header:hover {
+    background-color: #faf8f6;
+  }
 
-    .page::before {
-        display: none;
-    }
+  .accordion-header.active {
+    background-color: #faf8f6;
+  }
+
+  .accordion-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    flex: 1;
+    text-align: left;
+  }
+
+  .accordion-id {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: #e85d04;
+    margin-right: 12px;
+  }
+
+  .accordion-icon {
+    font-size: 22px;
+    font-weight: 600;
+    color: #e85d04;
+  }
+
+  /* Panel (hidden by default) */
+  .accordion-panel {
+    display: none;
+    padding: 0 18px 18px 18px;
+    border-top: 1px solid #f0eeeb;
+  }
+
+  .accordion-panel.show {
+    display: block;
+  }
+
+  /* Image inside panel */
+  .accordion-image {
+    margin: 16px 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .accordion-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Info inside panel */
+  .accordion-info {
+    margin-top: 8px;
+  }
+
+  .accordion-info .info-subtitle {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e85d04;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .accordion-info .info-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 16px;
+  }
+
+  .accordion-info .features-list {
+    margin-bottom: 20px;
+  }
+
+  .accordion-info .btn-details {
+    margin-top: 8px;
+    align-self: flex-start;
+  }
 }

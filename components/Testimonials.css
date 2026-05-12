@@ -76,7 +76,7 @@
 
 .tst-carousel-track-wrap {
   overflow: hidden;
-  border-radius: 6px;
+  border-radius:0 6px;
 }
 
 .tst-carousel-track {

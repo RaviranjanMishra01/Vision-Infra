@@ -136,10 +136,6 @@ export default function ExploreProjects() {
             >
               →
             </button>
-
-            <div className="erp2-counter">
-              <span>0{active + 1}</span> / 0{projects.length}
-            </div>
           </div>
 
           {/* Right — info pane */}
@@ -202,7 +198,7 @@ export default function ExploreProjects() {
       </div>
 
       {/* ── Bottom thumbnail tabs ── */}
-      <div className="erp2-tabs">
+      <div className="erp2-tabs mobile-priview">
         {projects.map((proj, i) => (
           <div
             key={proj.id}

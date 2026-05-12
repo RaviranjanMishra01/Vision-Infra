@@ -1,0 +1,438 @@
+.pim-section {
+  background: #f0eeeb;
+  font-family: 'Barlow', sans-serif;
+  position: relative;
+  overflow: hidden;
+  min-height: 550px;
+  display: flex;
+  align-items: stretch;
+}
+
+/* faint diagonal orange watermark right side */
+.pim-section::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-18deg);
+  width: 260px;
+  height: 260px;
+  background: rgba(232, 93, 4, 0.07);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── LEFT image ── */
+.pim-image-col {
+  position: relative;
+  width: 36%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.pim-image-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: brightness(0.88);
+}
+
+/* fade image into background on the right edge */
+.pim-image-col::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 55%, #f0eeeb 100%);
+  pointer-events: none;
+}
+
+/* ── RIGHT form area ── */
+.pim-form-col {
+  flex: 1;
+  padding: 52px 52px 52px 44px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pim-overline {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #e85d04;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.pim-heading {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.pim-subtext {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+/* ── Form grid ── */
+.pim-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+}
+
+.pim-field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pim-field.full {
+  grid-column: 1 / -1;
+}
+
+.pim-input,
+.pim-textarea {
+  width: 100%;
+  background: #ebe8e3;
+  border: none;
+  border-bottom: 2px solid transparent;
+  outline: none;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12.5px;
+  color: #333;
+  padding: 13px 16px;
+  border-radius: 2px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.pim-input::placeholder,
+.pim-textarea::placeholder {
+  color: #aaa;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+.pim-input:focus,
+.pim-textarea:focus {
+  border-bottom-color: #e85d04;
+  background: #e5e1db;
+}
+
+/* ── Error state styling ── */
+.pim-field.error .pim-input,
+.pim-field.error .pim-textarea {
+  background: #ffe5d5;
+  border-bottom-color: #d32f2f;
+  box-shadow: 0 0 0 1px rgba(211, 47, 47, 0.2);
+}
+
+.pim-field.error .pim-input:focus,
+.pim-field.error .pim-textarea:focus {
+  background: #ffd4c0;
+  border-bottom-color: #d32f2f;
+}
+
+/* ── Error message text ── */
+.field-error-text {
+  font-size: 11px;
+  color: #d32f2f;
+  font-weight: 600;
+  margin-top: 4px;
+  letter-spacing: 0.2px;
+  display: block;
+  animation: slideInError 0.3s ease-out;
+}
+
+@keyframes slideInError {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pim-textarea {
+  resize: none;
+  height: 90px;
+}
+
+/* ── Submit button ── */
+.pim-submit-wrap {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+.pim-submit {
+  background: #e85d04;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 15px 28px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.15s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pim-submit:hover:not(:disabled) {
+  background: #cf4f00;
+  transform: translateY(-1px);
+}
+
+.pim-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NOTIFICATION POPUP STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.notification-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+  animation: fadeInOverlay 0.3s ease-out;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.notification-popup {
+  background: white;
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: slideUpPopup 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUpPopup {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s, transform 0.2s;
+  border-radius: 4px;
+}
+
+.notification-close:hover {
+  color: #333;
+  transform: rotate(90deg);
+}
+
+/* ── Popup icon ── */
+.notification-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Popup title ── */
+.notification-title {
+  font-family: 'Barlow', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+/* ── Popup message ── */
+.notification-message {
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+/* ── Error list ── */
+.notification-errors {
+  background: #fef5f1;
+  border-left: 3px solid #d32f2f;
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.notification-error-item {
+  font-family: 'Barlow', sans-serif;
+  font-size: 11.5px;
+  color: #d32f2f;
+  margin-bottom: 6px;
+  line-height: 1.4;
+  animation: slideInError 0.3s ease-out;
+}
+
+.notification-error-item:last-child {
+  margin-bottom: 0;
+}
+
+.error-field {
+  font-weight: 700;
+  text-transform: capitalize;
+  display: inline-block;
+  min-width: 80px;
+}
+
+/* ── Popup button ── */
+.notification-btn {
+  background: #e85d04;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px 16px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.notification-btn:hover {
+  background: #cf4f00;
+  transform: translateY(-1px);
+}
+
+/* ── Color variants ── */
+.notification-error .notification-icon {
+  filter: drop-shadow(0 0 8px rgba(211, 47, 47, 0.4));
+}
+
+.notification-success .notification-icon {
+  filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.4));
+  animation: successBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes successBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.notification-success .notification-btn {
+  background: #4caf50;
+}
+
+.notification-success .notification-btn:hover {
+  background: #45a049;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 700px) {
+  .pim-section {
+    flex-direction: column;
+  }
+
+  .pim-image-col {
+    width: 100%;
+    height: 220px;
+  }
+
+  .pim-image-col::after {
+    background: linear-gradient(to bottom, transparent 55%, #f0eeeb 100%);
+  }
+
+  .pim-form-col {
+    padding: 32px 20px;
+  }
+
+  .pim-form {
+    grid-template-columns: 1fr;
+  }
+
+  .pim-field.full {
+    grid-column: 1;
+  }
+
+  .notification-popup {
+    margin: 20px;
+  }
+}
