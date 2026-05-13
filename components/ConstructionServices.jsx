@@ -61,108 +61,180 @@ export default function ConstructionServices() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // For mobile accordion: toggle function (close others)
   const toggleAccordion = (index) => {
     if (!isMobile) return;
     setActiveIndex(activeIndex === index ? null : index);
   };
 
   return (
-    <div className="page">
-      <div className="container">
-        {/* Hero heading */}
-        <div className="hero-heading">
-          <div className="overline">What We Do ✦</div>
+    <div className="construction-services-page">
+      <div className="construction-services-container">
+
+        <div className="construction-services-hero-heading">
+          <div className="construction-services-overline">
+            What We Do ✦
+          </div>
+
           <h1>
-            We provide excellent service<br />to our customers
+            We provide excellent service to our customers
           </h1>
         </div>
 
-        {/* Desktop layout (original) */}
         {!isMobile && (
-          <div className="services-layout">
-            {/* Left: list */}
-            <div className="service-list">
+          <div className="construction-services-layout">
+
+            <div className="construction-services-list">
               {services.map((s, i) => (
                 <div
                   key={s.id}
-                  className={`service-item${activeIndex === i ? " active" : ""}`}
+                  className={`construction-services-item${
+                    activeIndex === i ? " active" : ""
+                  }`}
                   onClick={() => setActiveIndex(i)}
                 >
-                  <span className="service-name">{s.name}</span>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span className="service-num">{s.id}</span>
-                    <span className="arrow-icon">↗</span>
+                  <span className="construction-services-name">
+                    {s.name}
+                  </span>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <span className="construction-services-num">
+                      {s.id}
+                    </span>
+
+                    <span className="construction-services-arrow-icon">
+                      ↗
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Right: content */}
-            <div className="service-content" key={activeIndex}>
-              <div className="image-card fade-in">
-                <div className="image-services">
-                  <img src={services[activeIndex].image} alt={services[activeIndex].name} />
+            <div
+              className="construction-services-content"
+              key={activeIndex}
+            >
+              <div className="construction-services-image-card fade-in">
+                <div className="construction-services-image-services">
+                  <img
+                    src={services[activeIndex].image}
+                    alt={services[activeIndex].name}
+                  />
                 </div>
-                <div className="image-label">
-                  <span className="label-text">Service</span>
-                  <span className="label-num">{services[activeIndex].id}</span>
+
+                <div className="construction-services-image-label">
+                  <span className="construction-services-label-text">
+                    Service
+                  </span>
+
+                  <span className="construction-services-label-num">
+                    {services[activeIndex].id}
+                  </span>
                 </div>
               </div>
-              <div className="info-panel fade-in">
+
+              <div className="construction-services-info-panel fade-in">
                 <div>
                   <h2>About this Service</h2>
-                  <div className="info-subtitle">{services[activeIndex].shortDesc}</div>
-                  <p className="info-desc">{services[activeIndex].description}</p>
-                  <ul className="features-list">
+
+                  <div className="construction-services-info-subtitle">
+                    {services[activeIndex].shortDesc}
+                  </div>
+
+                  <p className="construction-services-info-desc">
+                    {services[activeIndex].description}
+                  </p>
+
+                  <ul className="construction-services-features-list">
                     {services[activeIndex].features.map((f, i) => (
                       <li key={i}>
-                        <span className="feature-dot" />
+                        <span className="construction-services-feature-dot" />
                         {f}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <button className="btn-details">
-                  More Details <span className="btn-arrow">↗</span>
+
+                <button className="construction-services-btn-details">
+                  More Details
+
+                  <span className="construction-services-btn-arrow">
+                    ↗
+                  </span>
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        {/* Mobile accordion layout */}
         {isMobile && (
-          <div className="services-accordion">
+          <div className="construction-services-accordion">
+
             {services.map((s, idx) => {
               const isOpen = activeIndex === idx;
+
               return (
-                <div key={s.id} className="accordion-item">
+                <div
+                  key={s.id}
+                  className="construction-services-accordion-item"
+                >
                   <button
-                    className={`accordion-header ${isOpen ? "active" : ""}`}
+                    className={`construction-services-accordion-header ${
+                      isOpen ? "active" : ""
+                    }`}
                     onClick={() => toggleAccordion(idx)}
                   >
-                    <span className="accordion-name">{s.name}</span>
-                    <span className="accordion-id">{s.id}</span>
-                    <span className="accordion-icon">{isOpen ? "−" : "+"}</span>
+                    <span className="construction-services-accordion-name">
+                      {s.name}
+                    </span>
+
+                    <span className="construction-services-accordion-id">
+                      {s.id}
+                    </span>
+
+                    <span className="construction-services-accordion-icon">
+                      {isOpen ? "−" : "+"}
+                    </span>
                   </button>
-                  <div className={`accordion-panel ${isOpen ? "show" : ""}`}>
-                    <div className="accordion-image">
+
+                  <div
+                    className={`construction-services-accordion-panel ${
+                      isOpen ? "show" : ""
+                    }`}
+                  >
+                    <div className="construction-services-accordion-image">
                       <img src={s.image} alt={s.name} />
                     </div>
-                    <div className="accordion-info">
-                      <div className="info-subtitle">{s.shortDesc}</div>
-                      <p className="info-desc">{s.description}</p>
-                      <ul className="features-list">
+
+                    <div className="construction-services-accordion-info">
+                      <div className="construction-services-info-subtitle">
+                        {s.shortDesc}
+                      </div>
+
+                      <p className="construction-services-info-desc">
+                        {s.description}
+                      </p>
+
+                      <ul className="construction-services-features-list">
                         {s.features.map((f, i) => (
                           <li key={i}>
-                            <span className="feature-dot" />
+                            <span className="construction-services-feature-dot" />
                             {f}
                           </li>
                         ))}
                       </ul>
-                      <button className="btn-details">
-                        More Details <span className="btn-arrow">↗</span>
+
+                      <button className="construction-services-btn-details">
+                        More Details
+
+                        <span className="construction-services-btn-arrow">
+                          ↗
+                        </span>
                       </button>
                     </div>
                   </div>

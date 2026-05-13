@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import "./Testimonials.css";
 
-// ─── ALL DATA (flattened into single cards array) ──────────────────────────
 const CARDS = [
   {
     id: 1,
@@ -11,7 +11,7 @@ const CARDS = [
     company: "Thompson Corp.",
     avatar: "https://i.pravatar.cc/80?img=11",
     stars: 5,
-    text: "Exceptionally professional team. They handled our entire renovation project with great attention to detail and delivered on time. Highly recommended for any construction needs.",
+    text: "Outstanding work on our infrastructure project. The team demonstrated strong technical expertise, excellent project coordination, and a consistent focus on safety and quality standards. ",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const CARDS = [
     company: "Connor's Ltd.",
     avatar: "https://i.pravatar.cc/80?img=47",
     stars: 5,
-    text: "More than 7 years of expertise — they design and create stunning solutions that have been the cornerstone in building and growing our business. Truly outstanding service.",
+    text: "Outstanding work on our infrastructure project. The team demonstrated strong technical expertise, excellent project coordination, and a consistent focus on safety and quality standards. ",
     featured: true,
   },
   {
@@ -30,7 +30,7 @@ const CARDS = [
     company: "Anderson Ltd.",
     avatar: "https://i.pravatar.cc/80?img=53",
     stars: 4,
-    text: "Outstanding work on our infrastructure project. The team was professional, knowledgeable, and completed everything within the agreed timeline and budget constraints.",
+    text: "Outstanding work on our infrastructure project. The team demonstrated strong technical expertise, excellent project coordination, and a consistent focus on safety and quality standards. ",
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const CARDS = [
     company: "Mehta & Co.",
     avatar: "https://i.pravatar.cc/80?img=32",
     stars: 5,
-    text: "Working with this team was seamless from start to finish. Their structural expertise and communication made a complex project feel incredibly manageable.",
+    text: "Working with this team was seamless from start to finish. They understood our architectural vision perfectly and executed every detail with precision. ",
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const CARDS = [
     company: "Okafor Realty",
     avatar: "https://i.pravatar.cc/80?img=68",
     stars: 5,
-    text: "They delivered well ahead of schedule without cutting any corners. Quality of workmanship was top-notch and the site was always clean and well-managed.",
+    text: "They delivered well ahead of schedule without compromising on quality. The craftsmanship, project management, and professionalism shown by the entire team were exceptional.",
     featured: true,
   },
   {
@@ -58,138 +58,197 @@ const CARDS = [
     company: "Fischer Studios",
     avatar: "https://i.pravatar.cc/80?img=25",
     stars: 5,
-    text: "A rare contractor who actually listens to the designer's vision. They executed every detail of our interior renovation spec perfectly. Will definitely work with them again.",
+    text: "A rare contractor who actually listens to the designer's vision and brings it to life with precision. ",
   },
 ];
 
-const SECTION = {
-  overline: "TESTIMONIALS ✦",
-  heading: "What our clients say about us",
-  ratingLabel: "4.8",
-  ratingCount: "2k+ Reviews",
-};
+const clonedCards = [
+  CARDS[CARDS.length - 3],
+  CARDS[CARDS.length - 2],
+  CARDS[CARDS.length - 1],
+  ...CARDS,
+  CARDS[0],
+  CARDS[1],
+  CARDS[2],
+];
 
-// ─── STAR RENDERER ───────────────────────────────────────────────────────────
-function Stars({ count, total = 5 }) {
+function Stars({ count }) {
   return (
     <div className="tst-stars">
-      {Array.from({ length: total }).map((_, i) => (
-        <span key={i} className={`tst-star${i >= count ? " empty" : ""}`}>★</span>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span key={i} className={`tst-star ${i >= count ? "empty" : ""}`}>
+          ★
+        </span>
       ))}
     </div>
   );
 }
 
-// ─── CARD ────────────────────────────────────────────────────────────────────
 function Card({ card }) {
   return (
-    <div className={`tst-card${card.featured ? " featured" : ""}`}>
+    <div className={`tst-card ${card.featured ? "featured" : ""}`}>
       <div className="tst-quote-mark">"</div>
+
       <p className="tst-text">{card.text}</p>
+
       <div className="tst-divider" />
+
       <div className="tst-card-bottom">
         <div className="tst-card-person">
-          <img className="tst-avatar" src={card.avatar} alt={card.name} />
+          <img src={card.avatar} alt={card.name} className="tst-avatar" />
+
           <div>
             <div className="tst-name">{card.name}</div>
             <div className="tst-role">{card.role}</div>
             <div className="tst-company">{card.company}</div>
           </div>
         </div>
+
         <Stars count={card.stars} />
       </div>
     </div>
   );
 }
 
-// ─── MAIN COMPONENT (Single Card Carousel) ───────────────────────────────────
 export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(3);
+  const [transition, setTransition] = useState(true);
+  const totalDots = CARDS.length;
+
   const autoRef = useRef(null);
-  const totalCards = CARDS.length;
 
-  const goTo = (idx) => setCurrentIndex(idx);
-  const prev = () => setCurrentIndex((prevIdx) => (prevIdx - 1 + totalCards) % totalCards);
-  const next = () => setCurrentIndex((prevIdx) => (prevIdx + 1) % totalCards);
-
-  // Reset autoplay timer and call the navigation function
-  const resetAuto = (navigationFn) => {
-    clearInterval(autoRef.current);
-    navigationFn();
-    autoRef.current = setInterval(() => {
-      setCurrentIndex((idx) => (idx + 1) % totalCards);
-    }, 6000);
+  const next = () => {
+    setCurrentIndex((prev) => prev + 1);
   };
 
-  // Autoplay setup
+  const prev = () => {
+    setCurrentIndex((prev) => prev - 1);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index + 3);
+  };
+
+  const resetAuto = (fn) => {
+    clearInterval(autoRef.current);
+
+    fn();
+
+    autoRef.current = setInterval(() => {
+      next();
+    }, 5000);
+  };
+
   useEffect(() => {
     autoRef.current = setInterval(() => {
-      setCurrentIndex((idx) => (idx + 1) % totalCards);
-    }, 6000);
+      next();
+    }, 5000);
+
     return () => clearInterval(autoRef.current);
-  }, [totalCards]);
+  }, []);
+
+  const handleTransitionEnd = () => {
+    if (currentIndex >= CARDS.length + 3) {
+      setTransition(false);
+      setCurrentIndex(3);
+    }
+
+    if (currentIndex <= 0) {
+      setTransition(false);
+      setCurrentIndex(CARDS.length);
+    }
+  };
+
+  useEffect(() => {
+    if (!transition) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setTransition(true);
+        });
+      });
+    }
+  }, [transition]);
+
+  const [slideWidth, setSlideWidth] = useState(33.3333);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (window.innerWidth <= 768) {
+        setSlideWidth(100);
+      } else if (window.innerWidth <= 992) {
+        setSlideWidth(50);
+      } else {
+        setSlideWidth(33.3333);
+      }
+    };
+
+    updateWidth();
+
+    window.addEventListener("resize", updateWidth);
+
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   return (
     <section className="tst-section">
-      {/* ── Top row with heading and rating ── */}
       <div className="tst-top">
         <div>
-          <span className="tst-overline">{SECTION.overline}</span>
-          <h2 className="tst-heading">{SECTION.heading}</h2>
-        </div>
-        <div className="tst-rating-box">
-          <div className="tst-stars-big">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <span key={s} className="tst-star-big">★</span>
-            ))}
-          </div>
-          <div className="tst-rating-info">
-            <div className="tst-rating-num">{SECTION.ratingLabel}</div>
-            <div className="tst-rating-count">{SECTION.ratingCount}</div>
-          </div>
+          <span className="tst-overline">TESTIMONIALS ✦</span>
+
+          <h2 className="tst-heading">
+            What our clients say about us
+          </h2>
         </div>
       </div>
 
-      {/* ── Single-card carousel ── */}
       <div className="tst-carousel-outer">
         <div className="tst-carousel-track-wrap">
           <div
             className="tst-carousel-track"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            onTransitionEnd={handleTransitionEnd}
+            style={{
+              transform: `translateX(-${currentIndex * slideWidth}%)`,
+              transition: transition
+                ? "transform 0.6s ease"
+                : "none",
+            }}
           >
-            {CARDS.map((card) => (
-              <div className="tst-slide" key={card.id}>
+            {clonedCards.map((card, index) => (
+              <div className="tst-slide" key={index}>
                 <Card card={card} />
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── Controls: left arrow, dots, right arrow ── */}
         <div className="tst-controls">
           <button
             className="tst-arrow"
             onClick={() => resetAuto(prev)}
-            aria-label="Previous testimonial"
           >
             ←
           </button>
 
           <div className="tst-dots">
-            {CARDS.map((_, idx) => (
-              <button
-                key={idx}
-                className={`tst-dot${currentIndex === idx ? " active" : ""}`}
-                onClick={() => resetAuto(() => goTo(idx))}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
-            ))}
+            {Array.from({ length: totalDots }).map((_, index) => {
+              const activeIndex =
+                ((currentIndex - 3) % CARDS.length + CARDS.length) %
+                CARDS.length;
+
+              return (
+                <button
+                  key={index}
+                  className={`tst-dot ${activeIndex === index ? "active" : ""
+                    }`}
+                  onClick={() => goToSlide(index)}
+                />
+              );
+            })}
           </div>
 
           <button
             className="tst-arrow"
             onClick={() => resetAuto(next)}
-            aria-label="Next testimonial"
           >
             →
           </button>

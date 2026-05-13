@@ -73,12 +73,32 @@
 }
 
 /* ---------- News Grid ---------- */
+
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+
+  grid-template-columns: repeat(6, 1fr);
+
   gap: 26px;
 }
 
+.news-card {
+  grid-column: span 2;
+}
+
+/* ONE CARD LEFT */
+.news-card:last-child:nth-child(3n + 1) {
+  grid-column: 3 / span 2;
+}
+
+/* TWO CARDS LEFT */
+.news-card:nth-last-child(2):nth-child(3n + 1) {
+  grid-column: 2 / span 2;
+}
+
+.news-card:last-child:nth-child(3n + 2) {
+  grid-column: 4 / span 2;
+}
 /* ---------- News Card ---------- */
 .news-card {
   background: #ffffff;
@@ -250,6 +270,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

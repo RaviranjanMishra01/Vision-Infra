@@ -1,14 +1,13 @@
-"use client"
+"use client";
 import { useState } from "react";
-import "./Whychooseus.css"
+import "./Whychooseus.css";
 
 // ─── ALL DATA IN JSON ───────────────────────────────────────────────────────
 const DATA = {
   section: {
     overline: "OUR BENEFITS ✦",
     heading: "Why choose us",
-    truckImage:
-      "/assets/construction.png",
+    truckImage: "/assets/construction.png",
     truckAlt: "Large Mining Haul Truck",
   },
   features: [
@@ -43,43 +42,33 @@ export default function WhyChooseUs() {
   return (
     <>
       <section className="wcu-section">
+          <div className="wcu-container">
+            {/* ── LEFT: overline + heading + truck image ── */}
+            <div className="wcu-left">
+              <span className="wcu-overline">{section.overline}</span>
+              <h2 className="wcu-heading">{section.heading}</h2>
+              <div className="wcu-truck-wrapper">
+                <img
+                  className="wcu-truck-img"
+                  src={section.truckImage}
+                  alt={section.truckAlt}
+                />
+              </div>
+            </div>
 
-        {/* Faint large background numbers — far right */}
-        <div className="wcu-bg-numbers">
-          {bgNumbers.map((n) => (
-            <span key={n} className="wcu-bg-num">{n}</span>
-          ))}
-        </div>
-
-        <div className="wcu-container">
-
-          {/* ── LEFT: overline + heading + truck image ── */}
-          <div className="wcu-left">
-            <span className="wcu-overline">{section.overline}</span>
-            <h2 className="wcu-heading">{section.heading}</h2>
-            <div className="wcu-truck-wrapper">
-              <img
-                className="wcu-truck-img"
-                src={section.truckImage}
-                alt={section.truckAlt}
-              />
+            {/* ── RIGHT: features list ── */}
+            <div className="wcu-right">
+              {features.map((f) => (
+                <div className="wcu-feature" key={f.id}>
+                  <div className="wcu-feat-num">{f.id}</div>
+                  <div className="wcu-feat-body">
+                    <div className="wcu-feat-title">{f.title}</div>
+                    <div className="wcu-feat-desc">{f.desc}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* ── RIGHT: features list ── */}
-          <div className="wcu-right">
-            {features.map((f) => (
-              <div className="wcu-feature" key={f.id}>
-                <div className="wcu-feat-num">{f.id}</div>
-                <div className="wcu-feat-body">
-                  <div className="wcu-feat-title">{f.title}</div>
-                  <div className="wcu-feat-desc">{f.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
       </section>
     </>
   );

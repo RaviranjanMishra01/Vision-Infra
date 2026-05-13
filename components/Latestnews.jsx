@@ -35,7 +35,7 @@ const blogPosts = [
       "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint.",
     image:
       "/assets/news03.png",
-  },
+  }
 ];
 
 export default function LatestNews() {
